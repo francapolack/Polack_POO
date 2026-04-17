@@ -1,6 +1,5 @@
 #Profe tenga piedad sobre mis parametros posta no se nada sobre autos
 #añadir seapradores
-#añadir \n asi no se acopla todo en la consola
 class Auto:
     posicion=0
     def __init__(self,motor,giro,motor_rapido,giro_rapido):
@@ -13,12 +12,10 @@ class Auto:
         self.posicion+=self.giro_rapido
     def avance_rapido(self):
         self.motor=self.motor-4
-        self.posicion+=self.avance_rapido
-    def giro(self):
-        print("Has girado en la pista")
+        self.posicion+=self.motor_rapido
+    def giro_normal(self):
         self.posicion+=self.giro
     def avance(self):
-        print("Avanzas en la pista!!")
         self.posicion+=self.motor
 
 largo_pista=100
@@ -46,7 +43,9 @@ enemigo_2=Auto(motor_2,giro_2,rapido_2,giro_rapido_2)
 print("Bienvenido a la carrera!!")
 carrera=True
 while carrera: 
-    print("ACCIONES DE LA CARRERA")
+    avances_restantes=usuario.motor//4
+    giros_restantes=usuario.giro//3
+    print("\nACCIONES DE LA CARRERA")
     print("1)APRETAR EL ACELERADOR:Avanza a toda velocidad el auto (Abarca 30km de pista),pero causa un daño de -4 en el MOTOR")
     print("2)GIRO BRUSCO:Gira rapidamente en la pista,abarca muchos mas kilometros (24km de pista),pero da un -3 de daño al giro")
     print("3)SEGUIR:Avanza a velocidad normal,sin causar daño,abarca 10km")
@@ -55,19 +54,22 @@ while carrera:
     print("6)ABANDONAR la CARRERA")
     op=int(input("Ingrese el numero de la accion que desea tomar:"))
 
-    if usuario.motor==0 or usuario.giro==0:
+    if giros_restantes==0 or avances_restantes==0 or usuario.motor==0 or usuario.giro==0:
         print("\nHas roto el auto :(")
         print("\nHas perdido la carrera, tus competidores han quedado... ")
         if enemigo_1.posicion>enemigo_2.posicion:
             print(f"\nPRIMER LUGAR:Compañero 1 a {enemigo_1.posicion}KM")
             print(f"SEGUNDO LUGAR:Compañero 2 a {enemigo_2.posicion}KM de la carrera")
+            print(f"TERCER LUGAR: UD a {usuario.posicion}KM de la carrera")
         else:
             print(f"\nPRIMER LUGAR:Compañero 2 a {enemigo_2.posicion}KM")
             print(f"SEGUNDO LUGAR:Compañero 1 a {enemigo_1.posicion}KM de la carrera")
+            print(f"TERCER LUGAR: UD a {usuario.posicion}KM de la carrera")
         carrera=False
     else:
 
-        if usuario.posicion==100 and usuario.posicion>enemigo_1.posicion and usuario.posicion>enemigo_2.posicion:
+        if usuario.posicion>94:
+            carrera=False
             print("\nGanaste la carrera!!")
             print(f"\nPRIMER LUGAR: UD a {usuario.posicion}KM de la carrera")
             if enemigo_2.posicion>enemigo_1.posicion:
@@ -75,10 +77,11 @@ while carrera:
                     print(f"TERCER LUGAR: Compañero 1 a {enemigo_1.posicion}KM de la carrera")
             else:
                     print(f"SEGUNDO LUGAR: Compañero 1 a {enemigo_1.posicion}KM de la carrera")
-                    print(f"TERCER LUGAR: Compañero 2 a {enemigo_2.posicion}()KM de la carrera")
-            carrera=False
+                    print(f"TERCER LUGAR: Compañero 2 a {enemigo_2.posicion}KM de la carrera")
 
         elif enemigo_1.posicion==100 and enemigo_1.posicion>usuario.posicion and enemigo_1.posicion>enemigo_2.posicion:
+                print("\nGAME OVER")
+                print("No has llegado a tiempo a la pista :c")
                 print(f"\nPRIMER LUGAR:Compañero 1 a {enemigo_1.posicion}KM")
                 if enemigo_2.posicion>usuario.posicion:
                     print(f"SEGUNDO LUGAR:Compañero 2 a {enemigo_2.posicion}KM de la carrera")
@@ -89,6 +92,8 @@ while carrera:
                 carrera=False
 
         elif enemigo_2.posicion==100 and enemigo_2.posicion>usuario.posicion and enemigo_2.posicion>enemigo_1.posicion:
+                print("\nGAME OVER")
+                print("No has llegado a tiempo a la pista :c")
                 print(f"\nPRIMER LUGAR:Compañero 2 a {enemigo_2.posicion}KM")
                 if enemigo_1.posicion>usuario.posicion:
                     print(f"SEGUNDO LUGAR:Compañero 1 a {enemigo_1.posicion}KM de la carrera")
@@ -98,74 +103,50 @@ while carrera:
                     print(f"TERCER LUGAR: Compañero 1 a {enemigo_1.posicion}KM de la carrera")
                 carrera=False
         else:
-            if op==1:
-                usuario.giro_brusco()
-                print(f"\nUD da un GIRO BRUSCO sobre la pista,esta a {usuario.posicion} KM /100KM en la pista")
-                print("\nSus competidores responden...")
-                if enemigo_1.posicion<50 and enemigo_2.posicion<50:
+            if op==1 and avances_restantes>0:
+                    usuario.avance_rapido()
+                    print(f"\nUD AVANZA RAPIDAMENTE sobre la pista,esta a {usuario.posicion} KM /100KM en la pista")
+                    print("\nSus competidores responden...")
                     enemigo_1.avance_rapido()
                     print(f"\nEl enemigo 1 avanza RAPIDAMENTE,queda a {enemigo_1.posicion} KM/100KM en la pista")
                     enemigo_2.giro_brusco()
                     print(f"\nEl competidor 2 GIRA BRUSCAMENTE, esta a {enemigo_2.posicion} KM/100KM en la pista")
-                elif enemigo_1.posicion>=50 and enemigo_2>=50:
-                    enemigo_1.avance()
-                    print(f"\nEl enemigo 1 AVANZA,queda a {enemigo_1.posicion}KM/100KM en la pista")
-                    enemigo_2.avance()
-                    print(f"\nEl enemigo 2 AVANZA, queda a {enemigo_2.posicion}KM/100KM en la pista")
-            elif op==2:
-                usuario.giro_brusco()
-                print(f"\nUD da un GIRO BRUSCO sobre la pista,esta a {usuario.posicion} KM/100KM en la pista")
-                print("\nSus competidores responden...")
-                if enemigo_1.posicion<50 and enemigo_2.posicion()<50:
-                    enemigo_1.avance_rapido()
-                    print(f"\nEl enemigo 1 avanza RAPIDAMENTE,queda a {enemigo_1.posicion} KM/100KM en la pista")
-                    enemigo_2.giro_brusco()
-                    print(f"\nEl competidor 2 GIRA BRUSCAMENTE, esta a {enemigo_2.posicion} KM/100KM en la pista")
-                elif enemigo_1.posicion>=50 and enemigo_2.posicion>=50:
+                    
+            elif op==2 and giros_restantes>0:
+                    usuario.giro_brusco()
+                    print(f"\nUD da un GIRO BRUSCO sobre la pista,esta a {usuario.posicion} KM/100KM en la pista")
+                    print("\nSus competidores responden...")
                     enemigo_1.avance()
                     print(f"\nEl enemigo 1 AVANZA,queda a {enemigo_1.posicion}KM/100KM en la pista")
                     enemigo_2.giro_brusco()
                     print(f"\nEl enemigo 2 GIRO BRUSCAMENTE, queda a {enemigo_2.posicion}KM/100KM en la pista")
             elif op==3:
-                 usuario.avance()
-                 print(f"\nUD AVANZA sobre la pista, esta a {usuario.posicion}KM/100KM en la pista")
-                 if enemigo_1.posicion<50 and enemigo_2.posicion()<50:
+                    usuario.avance()
+                    print(f"\nUD AVANZA sobre la pista, esta a {usuario.posicion}KM/100KM en la pista")
                     enemigo_1.avance_rapido()
                     print(f"\nEl enemigo 1 avanza RAPIDAMENTE,queda a {enemigo_1.posicion} KM/100KM en la pista")
                     enemigo_2.giro_brusco()
                     print(f"\nEl competidor 2 GIRA BRUSCAMENTE, esta a {enemigo_2.posicion} KM/100KM en la pista")
-                 elif enemigo_1.posicion>=50 and enemigo_2.posicion()>=50:
-                    enemigo_1.avance()
-                    print(f"\nEl enemigo 1 AVANZA,queda a {enemigo_1.posicion}KM/100KM en la pista")
-                    enemigo_2.avance()
-                    print(f"\nEl enemigo 2 AVANZA, queda a {enemigo_2.posicion}KM/100KM en la pista")
+
             elif op==4:
-                 usuario.giro()
-                 print(f"\nUD GIRA sobre la pista, esta a {usuario.posicion}KM/100KM en la pista")
-                 print("Sus competidores responden...")
-                 if enemigo_1.posicion<50 and enemigo_2.posicion<50:
-                    enemigo_1.avance_rapido()
-                    print(f"\nEl enemigo 1 avanza RAPIDAMENTE,queda a {enemigo_1.posicion} KM/100KM en la pista")
-                    enemigo_2.giro_brusco()
-                    print(f"\nEl competidor 2 GIRA BRUSCAMENTE, esta a {enemigo_2.posicion} KM/100KM en la pista")
-                 elif enemigo_1.posicion>=50 and enemigo_2.posicion>=50:
+                    usuario.giro_normal()
+                    print(f"\nUD GIRA sobre la pista, esta a {usuario.posicion}KM/100KM en la pista")
+                    print("Sus competidores responden...")
                     enemigo_1.avance()
                     print(f"\nEl enemigo 1 AVANZA,queda a {enemigo_1.posicion}KM/100KM en la pista")
                     enemigo_2.giro_brusco()
                     print(f"\nEl enemigo 2 GIRO BRUSCAMENTE, queda a {enemigo_2.posicion}KM/100KM en la pista")
             elif op==5:
-                print("\nESTADO DE SU AUTO:")
-                avances_restantes=usuario.motor/4
-                giros_restantes=usuario.giro/3
-                print(f"MOTOR:{usuario.motor}KM.")
-                print(f"{usuario.motor} AVANCES NORMALES RESTANTES")
-                print(f"{avances_restantes} AVANCES RAPIDOS RESTANTES")
-                print(f"GIRO:{usuario.giro}")
-                print(f"{giros_restantes} GIROS RAPIDOS RESTANTES")
+                    print("\nESTADO DE SU AUTO:")
+                    print(f"MOTOR:{usuario.motor}KM.")
+                    print(f"{usuario.motor} AVANCES NORMALES RESTANTES")
+                    print(f"{avances_restantes} AVANCES RAPIDOS RESTANTES")
+                    print(f"GIRO:{usuario.giro}")
+                    print(f"{giros_restantes} GIROS RAPIDOS RESTANTES")
             elif op==6:
-                print("\n GAME OVER")
-                print("ABANDONAS LA CARRERA :(")
-                carrera=False
+                    print("\n GAME OVER")
+                    print("ABANDONAS LA CARRERA :(")
+                    carrera=False
 
 
 
