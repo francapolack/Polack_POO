@@ -1,10 +1,40 @@
-Ejercicio 9: EL TESORO ESCONDIDO
-Un explorador se adentra en una cueva en busca de tesoros. En su camino encuentra cofres que pueden estar
-cerrados o abiertos, y que contienen cierta cantidad de monedas.
-El usuario deberá decidir qué hacer en cada momento: intentar abrir cofres, recolectar monedas o continuar
-explorando.
-El sistema debe permitir visualizar el estado del cofre y la cantidad de recursos acumulados por el jugador
-hasta finalizar la exploración.
 from random import randint
+no_abierto=6
+abierto=0
+cofres=[1,2,3,4,5,6]
 class Cofre:
-    
+    monedas=randint(1,100)
+    estado="Cerrado"
+
+
+print("Bienvenido a la Cueva de los tesoros...")
+i=1
+menu=True
+while menu:
+    print("1)Continuar explorando")
+    print("2)Ver mis cofres")
+    print("3)Ver mis ganancias")
+    print("4)Abandonar la cueva")
+    op=int(input("Ingrese la opcion del menu que desea ejecutar:"))
+    if i>6:
+            print(f"Ya no quedan cofres para buscar :(")
+            menu=False
+    else:
+        if op==1:
+            print("Explorando...")
+            print(f"Ha aparecido el cofre {i}")
+            i+=1
+            print("Que desea hacer?")
+            print("1)Abrir el cofre")
+            print("2)Seguir explorando")
+            opp=int(input("Ingrese su accion:"))
+            if opp==1:
+                print("x")
+            elif opp==2:
+                print("Deja el cofre y sigue explorando...")
+
+        
+
+
+
+
