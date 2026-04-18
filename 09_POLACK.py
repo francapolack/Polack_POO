@@ -1,22 +1,27 @@
 from random import randint
-no_abierto=6
-abierto=0
+cofres_abiertos=[]
+cofres_no_abiertos=7
 class Cofre:
-    monedas=randint(1,100)
-    estado="Cerrado"
+     estado="Cerrado"
+     def __init__(self,monedas):
+          self.monedas=monedas
 
-print("Bienvenido a la Cueva de los tesoros...")
 i=0
-menu=True
-while menu:
-    print("1)Continuar explorando")
+ganancias=0
+
+print("Bienvenido a la Cueva de los tesoros")
+exploracion=True
+while exploracion:
+    print("1)Explorar")
     print("2)Ver mis cofres")
     print("3)Ver mis ganancias")
     print("4)Abandonar la cueva")
     op=int(input("Ingrese la opcion del menu que desea ejecutar:"))
     if i>8:
+            print("GAME OVER")
+            print("FIN DE LA CUEVA")
             print(f"Ya no quedan cofres para buscar :(")
-            menu=False
+            exploracion=False
     else:
         if op==1:
             print("Explorando...")
@@ -28,10 +33,14 @@ while menu:
             opp=int(input("Ingrese su accion:"))
             if opp==1:
                 abierto+=1
-                cofre=Cofre()
+                cofre=Cofre(randint(1,1000))
                 print(cofre.monedas)
                 cofre.estado="Abierto"
-                print(cofre.estado)
+                cofres_no_abiertos-=1
+                cofres_abiertos.append(f"Cofre {i}")
+                cofres_abiertos.append(cofre.monedas)
+                ganancias+=cofre.monedas
+
             elif opp==2:
                 print("Deja el cofre y sigue explorando...")
 
