@@ -4,7 +4,7 @@ cofres_no_abiertos=7
 moneditas=0
 joyitas=0
 brillan=0
-#añadir mas tesoros???
+cofres_abiertos=0
 class Cofre:
      estado="Cerrado"
      def __init__(self,monedas,joyas,brillantes):
@@ -25,26 +25,35 @@ while exploracion:
             print("GAME OVER")
             print("FIN DE LA CUEVA")
             print(f"Ya no quedan cofres para buscar :(")
-            print(f"COFRES ABIERTOS:{i}///GANANCIAS TOTALES:{ganancias}")
+            print("-----------------------------")
+            print(f"\nCOFRES ABIERTOS:{cofres_abiertos}")
+            print(f"MONEDAS TOTALES:{moneditas}")
+            print(f"JOYAS TOTALES:{joyitas}")
+            print(f"BRILLANTES TOTALES:{brillan}")
+            print(f"\nCOFRES *NO* ABIERTOS:{cofres_no_abiertos}")
+            print("-----------------------------")
             exploracion=False
     else:
         if op==1:
             print("Explorando...")
             print(f"Ha aparecido el cofre {i}")
+            cofre=Cofre(randint(0,1000),randint(0,6),randint(0,300))
+            print(f"Su ESTADO es:{cofre.estado}")
             print("Que desea hacer?")
             print("1)Abrir el cofre")
             print("2)Seguir explorando")
             opp=int(input("Ingrese su accion:"))
             if opp==1:
-                cofre=Cofre(randint(0,1000),randint(0,6),randint(0,300))
-                print(cofre.monedas)
+                print(f"MONEDAS ENCONTRADAS: {cofre.monedas}")
+                print(f"JOYAS ENCONTRADAS: {cofre.joyas}")
+                print(f"BRILLANTES ENCONTRADOS: {cofre.brillantes}")
                 cofre.estado="Abierto"
                 cofres_no_abiertos-=1
                 cofres_ganancias.append(f"COFRE {i}")
                 cofres_ganancias.append(f"MONEDAS del COFRE {i}: {cofre.monedas}")
                 cofres_ganancias.append(f"JOYAS del COFRE {i}: {cofre.joyas}")
                 cofres_ganancias.append(f"BRILLANTES del COFRE {i}: {cofre.brillantes}")
-                ganancias+=cofre.monedas
+                moneditas+=cofre.monedas
                 joyitas+=cofre.joyas
                 brillan+=cofre.brillantes
                 i+=1
@@ -54,7 +63,7 @@ while exploracion:
         elif op==2:
              print("-------------------------------")
              for x in range(0,len(cofres_ganancias)):
-                  print(f"\n{cofres_ganancias[x]}---")
+                  print(f"\n{cofres_ganancias[x]}")
              print("-------------------------------")
         elif op==3:
             print("GANANCIAS TOTALES")
