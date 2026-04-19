@@ -6,14 +6,14 @@ class escenario:
         self.nombre=nombre
         self.efecto=efecto
 
-i=0
+i=1
 inventario=[]
 objetos_descartados=0
 objetos_encontrados=0
 objetos_usados=0
 
 
-escenarios=("MONTAÑA","DESIERTO","BOSQUE")
+escenarios=["MONTAÑA","DESIERTO","BOSQUE"]
 objetos=["Helado","Pocion de Agua","Pico de Hielo","Pocion de Arena","Arena Movediza","Pan","Pocion del Rio","Salmon","Hacha"]
 efectos=["Hace NADA","Hace que el CLIMA mejore","AHUYENTA a todos los ENEMIGOS","Te hace mas FELIZ"]
 
@@ -36,7 +36,7 @@ while aventura:
         op=int(input("Ingrese el número de la opción que desea realizar:"))
         if op==1:
             escenario_chance=randint(1,3)
-            print(f"PRIMER ESCENARIO:{escenarios[i]}")
+            print(f"ESCENARIO:{escenarios[escenario_chance]}")
             objeto=objetos[randint(1,3)]
             efecto=efectos[randint(1,5)]
             escenarioo=escenario()
