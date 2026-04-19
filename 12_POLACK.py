@@ -25,7 +25,7 @@ while aventura:
         print("FELICIDADES!!")
         print("Has encontrado TODOS los objetos de los escenarios!!")
         print(f"Objetos encontrados en TOTAL:{objetos_encontrados}")
-        print(f"Objetos descartados:{objetos_descartados}")
+        print(f"Objetos DESCARTADOS:{objetos_descartados}")
         print(f"Objetos USADOS:{objetos_usados}")
         print("--------------✩₊˚.⋆☾⋆⁺₊✧--------------------")
         aventura=False
@@ -71,16 +71,16 @@ while aventura:
             print(f"{inventario[op]}")
             print("--------------✩₊˚.⋆☾⋆⁺₊✧--------------------")
             objetos_usados+=1
-            inventario[op]=0
-            inventario[op-1]=0
+            inventario[op]=""
+            inventario[op-1]=""
         elif op==4:
             print("\n--------------✩₊˚.⋆☾⋆⁺₊✧--------------------")
             op=int(input("Escribe el numero del objeto que deseas descartar:"))
             print(f"DESCARTAS el objeto {inventario[op-1]}!!")
             print("--------------✩₊˚.⋆☾⋆⁺₊✧--------------------")
             objetos_descartados+=1
-            inventario[op]=0
-            inventario[op-1]=0
+            inventario[op]=""
+            inventario[op-1]=""
         elif op==5:
             print("\n--------------✩₊˚.⋆☾⋆⁺₊✧--------------------")
             print("ABANDONAS LA AVENTURA :(")
