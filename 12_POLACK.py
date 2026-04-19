@@ -34,7 +34,7 @@ while aventura:
         print("1)Explorar")
         print("2)Ver mis OBJETOS")
         print("3)Usar un OBJETO")
-        print("4)Descartare un OBJETO")
+        print("4)Descartar333333333333333333333333333333333333333 un OBJETO")
         print("5)Abandonar la AVENTURA")
         op=int(input("Ingrese el número de la opción que desea realizar:"))
         print("--------------✩₊˚.⋆☾⋆⁺₊✧--------------------")
