@@ -1,5 +1,85 @@
-Ejercicio 12: AVENTURA Y OBJETOS
-Un aventurero recorre distintos escenarios recolectando objetos que encuentra en su camino. El usuario podrá
-decidir qué hacer con cada objeto: guardarlo, utilizarlo o descartarlo. Además, deberá poder consultar en todo
-momento qué elementos posee.
-El programa debe permitir gestionar esta información de forma dinámica durante la ejecución.
+
+
+from random import randint
+class escenario:
+    def objeto(self,nombre,efecto):
+        self.nombre=nombre
+        self.efecto=efecto
+
+i=0
+inventario=[]
+objetos_descartados=0
+objetos_encontrados=0
+objetos_usados=0
+
+
+escenarios=("MONTAÑA","DESIERTO","BOSQUE")
+objetos=["Helado","Pocion de Agua","Pico de Hielo","Pocion de Arena","Arena Movediza","Pan","Pocion del Rio","Salmon","Hacha"]
+efectos=["Hace NADA","Hace que el CLIMA mejore","AHUYENTA a todos los ENEMIGOS","Te hace mas FELIZ"]
+
+
+aventura=True
+while aventura:
+    if objetos_encontrados>7:
+        print("FELICIDADES!!")
+        print("Has encontrado TODOS los objetos de los escenarios!!")
+        print(f"Objetos encontrados en TOTAL:{objetos_encontrados}")
+        print(f"Objetos descartados:{objetos_descartados}")
+        print(f"Objetos USADOS:{objetos_usados}")
+        aventura=False
+    else:
+        print("1)Explorar")
+        print("2)Ver mis OBJETOS")
+        print("3)Usar un OBJETO")
+        print("4)Descartare un OBJETO")
+        print("5)Abandonar la AVENTURA")
+        op=int(input("Ingrese el número de la opción que desea realizar:"))
+        if op==1:
+            escenario_chance=randint(1,3)
+            print(f"PRIMER ESCENARIO:{escenarios[i]}")
+            objeto=objetos[randint(1,3)]
+            efecto=efectos[randint(1,5)]
+            escenarioo=escenario()
+            escenarioo.objeto(objeto,efecto)
+            print(f"Te encuentras un {escenarioo.nombre}")
+            print(f"EFECTO del OBJETO {escenarioo.nombre}:{escenarioo.efecto}")
+            objetos_encontrados+=1
+            op=str(input("Deseas GUARDARLO? SI/NO:"))
+            if op=="si" or op=="SI":
+                inventario.append(f"OBJETO {i}:{escenarioo.nombre}")
+                inventario.append(f"EFECTO DEL OBJETO:{escenarioo.efecto}")
+                i+=1
+            elif op=="no" or op=="NO":
+                objetos_descartados+=1
+                print("Tiras el objeto y sigues explorando...")
+            i+=1
+        elif op==2:
+            for objeto in inventario:
+                print(objeto)
+        elif op==3:
+            op=int(input("Escribe el numero del objeto que deseas usar:"))
+            print(f"USAS el objeto {inventario[op]}!!")
+            print("Su EFECTO...")
+            print({inventario[op+1]})
+            objetos_usados+=1
+            inventario[op]=0
+            inventario[op+1]=0
+        elif op==4:
+            op=int(input("Escribe el numero del objeto que deseas descartar:"))
+            print(f"DESCARTAS el objeto {inventario[op]}!!")
+            objetos_descartados+=1
+            inventario[op]=0
+            inventario[op+1]=0
+        elif op==5:
+            print("ABANDONAS LA AVENTURA :(")
+            aventura=False            
+
+
+
+
+
+
+
+
+
+
